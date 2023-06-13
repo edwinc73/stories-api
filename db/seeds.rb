@@ -1,7 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require "faker"
+
+10.times do
+  story = Story.new(
+    name: Faker::TvShows::GameOfThrones.character,
+    text: "Pizza ipsum dolor amet white garlic mozzarella platter thin crust, garlic meat lovers black olives sausage deep crust bacon & tomato sausage burnt mouth. Pepperoni thin crust chicken wing, parmesan extra cheese peppers pizza pork ranch ham stuffed. NY style green bell peppers parmesan bacon & tomato garlic sauce. Thin crust large ham pizza roll. Platter mayo ricotta melted cheese, white garlic bbq sauce pineapple philly steak. Chicken beef stuffed crust ricotta pepperoni."
+  )
+
+  rand(2..7).times do
+    comment = Comment.new(
+      name: Faker::TvShows::GameOfThrones.character,
+      content: Faker::TvShows::GameOfThrones.quote
+    )
+    comment.story = story
+    comment.save!
+  end
+  story.save!
+end
